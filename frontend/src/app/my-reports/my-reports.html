@@ -94,8 +94,11 @@
             [src]="report.image.startsWith('http')
               ? report.image
               : 'https://campus-lost-found-backend-j3iz.onrender.com' + report.image"
+              
             alt="Item image"
+            
           >
+            
 
           <div *ngIf="!report.image" class="no-image">
             📦

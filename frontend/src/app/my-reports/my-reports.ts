@@ -80,7 +80,9 @@ export class MyReports implements OnInit, OnDestroy {
     this.imagePreview = report.image
       ? (report.image.startsWith('http')
           ? report.image
+            
           : 'https://campus-lost-found-backend-j3iz.onrender.com' + report.image)
+        
       : null;
   }
 
@@ -112,6 +114,7 @@ export class MyReports implements OnInit, OnDestroy {
 
     if (this.selectedImage) {
       formData.append('image', this.selectedImage);
+    
     }
 
     this.itemService.updateItem(reportId, formData).subscribe({
