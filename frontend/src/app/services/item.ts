@@ -74,7 +74,7 @@ export class ItemService {
   getMyReports() {
 
   return this.http.get<any[]>(
-    'http://127.0.0.1:8000/api/my-reports/'
+    'https://campus-lost-found-backend-j3iz.onrender.com/api/my-reports/'
   );
 
 }
