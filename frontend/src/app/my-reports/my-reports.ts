@@ -80,7 +80,7 @@ export class MyReports implements OnInit, OnDestroy {
     this.imagePreview = report.image
       ? (report.image.startsWith('http')
           ? report.image
-          : 'http://127.0.0.1:8000' + report.image)
+          : 'https://campus-lost-found-backend-j3iz.onrender.com' + report.image)
       : null;
   }
 

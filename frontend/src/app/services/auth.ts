@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'https://campus-lost-found-backend-j3iz.onrender.com/api';
 
   constructor(
     private http: HttpClient

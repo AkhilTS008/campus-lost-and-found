@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class ChatService {
 
   private apiUrl =
-    'http://127.0.0.1:8000/api/chat/';
+    'https://campus-lost-found-backend-j3iz.onrender.com/api/chat/';
 
   constructor(
     private http: HttpClient

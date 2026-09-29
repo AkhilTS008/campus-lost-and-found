@@ -76,7 +76,7 @@ export class ItemDetails implements OnInit {
     return image;
   }
 
-  return `http://127.0.0.1:8000${image}`;
+  return `https://campus-lost-found-backend-j3iz.onrender.com${image}`;
 }
 
 }

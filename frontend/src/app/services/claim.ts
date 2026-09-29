@@ -83,10 +83,10 @@ import { HttpClient } from '@angular/common/http';
 export class ClaimService {
 
   private apiUrl =
-    'http://127.0.0.1:8000/api/claims/';
+    'https://campus-lost-found-backend-j3iz.onrender.com/api/claims/';
 
   private adminUrl =
-    'http://127.0.0.1:8000/api/admin/claims/';
+    'https://campus-lost-found-backend-j3iz.onrender.com/api/admin/claims/';
 
   constructor(
     private http: HttpClient

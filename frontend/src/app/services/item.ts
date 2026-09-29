@@ -6,7 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class ItemService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/items/';
+  private apiUrl = 'https://campus-lost-found-backend-j3iz.onrender.com/api/items/';
 
   constructor(private http: HttpClient) {}
 
