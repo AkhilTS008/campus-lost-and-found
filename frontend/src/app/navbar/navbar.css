@@ -1,0 +1,100 @@
+.navbar {
+  min-height: 70px;
+  padding: 0 28px;
+  background: rgb(177, 212, 224);
+  border-bottom: 5px solid #530f72;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background-image: url("https://img.magnific.com/free-vector/new-purple-backgroun_125964-491.jpg?semt=ais_hybrid&w=740&q=80");
+  
+  /* position: sticky; */
+  top: 0;
+  z-index: 1000;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+}
+
+.brand-icon {
+  font-size: 35px;
+}
+
+.brand-text {
+  font-weight: 800;
+  color: #f5f6fa;
+  font-size: 18px;
+  
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-links a {
+  color: #f8e3f5;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.nav-links a:hover {
+  color: #fcfbfb;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.welcome {
+  color: #334155;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.logout-button {
+  border: none;
+  padding: 9px 15px;
+  border-radius: 7px;
+  background: #ef4444;
+  color: white;
+  font-weight: 700;
+}
+
+.logout-button:hover {
+  background: #dc2626;
+}
+
+@media (max-width: 1100px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    gap: 12px;
+  }
+
+  .welcome {
+    display: none;
+  }
+}

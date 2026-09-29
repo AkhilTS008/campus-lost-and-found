@@ -1,0 +1,225 @@
+<!-- frontend/src/app/admin-claims/admin-claims.html -->
+
+<div class="admin-header">
+
+  <div class="admin-title">
+    🛡️ Campus Lost & Found — Admin
+  </div>
+
+  <div class="admin-actions">
+
+    <a routerLink="/admin-dashboard">
+      Dashboard
+    </a>
+
+    <button
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="admin-container">
+
+  <div class="page-heading">
+
+    <h2>
+      Manage Claims
+    </h2>
+
+    <p>
+      Review student claims and manage their status.
+    </p>
+
+  </div>
+
+
+  <p
+    *ngIf="message"
+    class="message"
+  >
+    {{ message }}
+  </p>
+
+
+  <div
+    class="claim-card"
+    *ngFor="let claim of claims"
+  >
+
+    <div class="claim-heading">
+
+      <h3>
+        Claim #{{ claim.id }}
+      </h3>
+
+      <span
+        class="status-badge"
+        [class.pending]="
+          claim.status === 'PENDING'
+        "
+        [class.approved]="
+          claim.status === 'APPROVED'
+        "
+        [class.rejected]="
+          claim.status === 'REJECTED'
+        "
+      >
+        {{ claim.status }}
+      </span>
+
+    </div>
+
+
+    <p>
+      <strong>Item:</strong>
+      {{ claim.item_name }}
+    </p>
+
+
+    <p>
+      <strong>Claimed By:</strong>
+      {{ claim.claimed_by_username }}
+    </p>
+
+
+    <p>
+      <strong>Reason:</strong>
+      {{ claim.reason }}
+    </p>
+
+
+    <p>
+      <strong>Created:</strong>
+      {{ claim.created_at | date:'medium' }}
+    </p>
+
+
+    <!-- PENDING -->
+
+    <div
+      *ngIf="claim.status === 'PENDING'"
+      class="actions"
+    >
+
+      <button
+        class="approve"
+        (click)="approveClaim(claim.id)"
+      >
+        Approve
+      </button>
+
+
+      <button
+        class="reject"
+        (click)="rejectClaim(claim.id)"
+      >
+        Reject
+      </button>
+
+    </div>
+
+
+    <!-- REJECTED -->
+
+    <div
+      *ngIf="claim.status === 'REJECTED'"
+      class="actions"
+    >
+
+      <button
+        class="reopen"
+        (click)="reopenClaim(claim.id)"
+      >
+        Reopen
+      </button>
+
+    </div>
+
+
+    <!-- APPROVED -->
+
+    <div
+      *ngIf="claim.status === 'APPROVED'"
+      class="status-message"
+    >
+
+      ✓ Approved
+
+      <p>
+        Waiting for the user to complete the claim.
+      </p>
+
+    </div>
+
+
+    <!-- STATUS EDIT -->
+
+    <div
+      *ngIf="
+        claim.status === 'PENDING' ||
+        claim.status === 'REJECTED'
+      "
+      class="edit-status"
+    >
+
+      <label
+        [for]="'status-' + claim.id"
+      >
+        Edit Status
+      </label>
+
+
+      <select
+        [id]="'status-' + claim.id"
+        [(ngModel)]="
+          selectedStatuses[claim.id]
+        "
+      >
+
+        <option value="">
+          Select status
+        </option>
+
+        <option value="PENDING">
+          Pending
+        </option>
+
+        <option value="APPROVED">
+          Approved
+        </option>
+
+        <option value="REJECTED">
+          Rejected
+        </option>
+
+      </select>
+
+
+      <button
+        class="save-status"
+        (click)="editStatus(claim.id)"
+      >
+        Save Status
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    *ngIf="
+      claims.length === 0 &&
+      !message
+    "
+    class="no-claims"
+  >
+    No active claims found.
+  </div>
+
+</div>

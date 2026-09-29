@@ -1,0 +1,155 @@
+/* PAGE */
+.dashboard {
+  min-height: calc(100vh - 70px);
+  padding: 55px 25px 70px;
+  box-sizing: border-box;
+  background: #f8fafc;
+}
+
+/* WELCOME SECTION */
+.welcome-section {
+  max-width: 1100px;
+  margin: 0 auto 45px;
+  padding: 35px 40px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+.welcome-section h1 {
+  margin: 0 0 15px;
+  color: #0f172a;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.welcome-section p {
+  max-width: 720px;
+  margin: 0 auto;
+  color: #64748b !important;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* DASHBOARD GRID */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* DASHBOARD CARD */
+.dashboard-card {
+  position: relative;
+  min-width: 0;
+  padding: 27px 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  border-color: #bfdbfe;
+  box-shadow: 0 13px 28px rgba(15, 23, 42, 0.09);
+}
+
+/* ICON */
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: #bb1fe2;
+  font-size: 27px;
+}
+
+/* CARD TEXT */
+.dashboard-card h3 {
+  margin: 0 0 9px;
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.dashboard-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* CARD HOVER INDICATOR */
+.dashboard-card::after {
+  content: "→";
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  color: #2563eb;
+  font-size: 20px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.dashboard-card:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .welcome-section h1 {
+    font-size: 29px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 30px 15px 50px;
+  }
+
+  .welcome-section {
+    padding: 28px 20px;
+    margin-bottom: 28px;
+  }
+
+  .welcome-section h1 {
+    font-size: 24px;
+  }
+
+  .welcome-section p {
+    font-size: 13px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .dashboard-card {
+    padding: 22px;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 15px;
+    font-size: 23px;
+  }
+}

@@ -1,0 +1,218 @@
+<app-navbar></app-navbar>
+
+<div class="items-page">
+
+  <div class="items-container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div>
+        <span class="eyebrow">CAMPUS LOST & FOUND</span>
+        <h1>Explore Items</h1>
+        <p>
+          Browse lost and found items reported by students.
+          Find what you're looking for or help return an item.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- SEARCH AND FILTERS -->
+    <div class="filter-card">
+
+      <div class="filter-heading">
+        <div>
+          <h2>Find an Item</h2>
+          <p>Search using item details or apply filters.</p>
+        </div>
+      </div>
+
+      <div class="filters">
+
+        <div class="search-field">
+          <label for="search">Search</label>
+          <input
+            id="search"
+            type="text"
+            [(ngModel)]="search"
+            placeholder="Search by item name..."
+            (keyup.enter)="searchItems()"
+          >
+        </div>
+
+        <div class="filter-field">
+          <label for="itemType">Item Type</label>
+          <select id="itemType" [(ngModel)]="itemType">
+            <option value="">All Items</option>
+            <option value="LOST">Lost Items</option>
+            <option value="FOUND">Found Items</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="category">Category</label>
+          <input
+            id="category"
+            type="text"
+            [(ngModel)]="category"
+            placeholder="e.g. Electronics"
+            (keyup.enter)="searchItems()"
+          >
+        </div>
+
+        <div class="filter-field">
+          <label for="location">Location</label>
+          <input
+            id="location"
+            type="text"
+            [(ngModel)]="location"
+            placeholder="e.g. Library"
+            (keyup.enter)="searchItems()"
+          >
+        </div>
+
+      </div>
+
+      <div class="filter-actions">
+        <button class="search-button" (click)="searchItems()">
+          <span>⌕</span>
+          Search Items
+        </button>
+
+        <button class="clear-button" (click)="clearFilters()">
+          Clear Filters
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RESULTS HEADER -->
+    <div class="results-header">
+      <div>
+        <h2>Available Reports</h2>
+        <p>Explore the items reported on campus.</p>
+      </div>
+
+      <span class="result-count">
+        {{ items.length }} {{ items.length === 1 ? 'Item' : 'Items' }}
+      </span>
+    </div>
+
+    <!-- ERROR MESSAGE -->
+    <div *ngIf="message" class="error-message">
+      <span>⚠️</span>
+      {{ message }}
+    </div>
+
+    <!-- ITEM GRID -->
+    <div class="item-grid" *ngIf="items.length > 0">
+
+      <div class="item-card" *ngFor="let item of items">
+
+        <!-- IMAGE -->
+        <div class="item-image-container">
+
+          <img
+            *ngIf="item.image"
+            [src]="item.image.startsWith('http')
+              ? item.image
+              : 'http://127.0.0.1:8000' + item.image"
+            alt="Item image"
+          >
+
+          <div *ngIf="!item.image" class="no-image">
+            <span>📦</span>
+            <small>No image available</small>
+          </div>
+
+          <span
+            class="type-badge"
+            [class.lost]="item.item_type === 'LOST'"
+            [class.found]="item.item_type === 'FOUND'"
+          >
+            {{ item.item_type === 'LOST' ? 'LOST ITEM' : 'FOUND ITEM' }}
+          </span>
+
+        </div>
+
+        <!-- ITEM CONTENT -->
+        <div class="item-content">
+
+          <div class="item-title-row">
+            <h3>{{ item.item_name }}</h3>
+
+            <span
+              class="status-dot"
+              [class.returned]="item.status === 'RETURNED'"
+              [title]="item.status"
+            ></span>
+          </div>
+
+          <div class="item-category">
+            {{ item.category }}
+          </div>
+
+          <p class="item-description">
+            {{ item.description }}
+          </p>
+
+          <div class="item-meta">
+
+            <div class="meta-row">
+              <span class="meta-icon">📍</span>
+              <span>{{ item.location }}</span>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-icon">📅</span>
+              <span>{{ item.date }}</span>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-icon">●</span>
+              <span
+                class="status-text"
+                [class.returned-text]="item.status === 'RETURNED'"
+              >
+                {{ item.status === 'RETURNED' ? 'Returned' : 'Active' }}
+              </span>
+            </div>
+
+          </div>
+
+          <a
+            class="details-button"
+            [routerLink]="['/item', item.id]"
+          >
+            View Details
+            <span>→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div
+      *ngIf="items.length === 0 && !message"
+      class="empty-state"
+    >
+      <div class="empty-icon">🔎</div>
+
+      <h3>No Items Found</h3>
+
+      <p>
+        We couldn't find any items matching your search.
+        Try changing your search or filters.
+      </p>
+
+      <button class="clear-button" (click)="clearFilters()">
+        Clear Filters
+      </button>
+    </div>
+
+  </div>
+
+</div>

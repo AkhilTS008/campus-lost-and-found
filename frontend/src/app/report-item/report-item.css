@@ -1,0 +1,367 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.report-page {
+  min-height: calc(100vh - 70px);
+  padding: 45px 20px 70px;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.report-card {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+
+  padding: 38px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 15px 40px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.report-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+
+  margin-bottom: 28px;
+}
+
+.report-icon {
+  width: 54px;
+  height: 54px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #eff6ff;
+
+  font-size: 25px;
+}
+
+.eyebrow {
+  margin: 2px 0 5px;
+
+  color:#5f028a;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.report-header h1 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   REPORT TYPE
+========================================= */
+
+.report-type {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 15px 17px;
+
+  margin-bottom: 28px;
+
+  border-radius: 12px;
+
+  border: 1px solid;
+}
+
+.report-type.lost-type {
+  background: #fcc1c1;
+  border-color: #fed7aa;
+}
+
+.report-type.found-type {
+  background: #a7fab2;
+  border-color: #bbf7d0;
+}
+
+.type-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+
+  border-radius: 10px;
+
+  font-size: 18px;
+}
+
+.report-type strong {
+  display: block;
+
+  color: #1e293b;
+
+  font-size: 14px;
+}
+
+.report-type p {
+  margin: 3px 0 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-group label span {
+  color: #94a3b8;
+
+  font-weight: 500;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #0f172a;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.form-group textarea {
+  min-height: 120px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   FILE UPLOAD
+========================================= */
+
+.file-box {
+  padding: 15px;
+
+  border: 1px dashed #cbd5e1;
+
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+.file-box input {
+  border: none;
+
+  padding: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+.file-box input:focus {
+  box-shadow: none;
+}
+
+.file-box p {
+  margin: 8px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.submit-button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 8px;
+
+  padding: 14px 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  background: #cbd5e1;
+
+  color: #64748b;
+
+  cursor: not-allowed;
+}
+
+.arrow {
+  font-size: 18px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .report-page {
+    padding: 25px 14px 50px;
+  }
+
+  .report-card {
+    padding: 25px 20px;
+
+    border-radius: 16px;
+  }
+
+  .report-header {
+    gap: 13px;
+  }
+
+  .report-icon {
+    width: 45px;
+    height: 45px;
+    
+
+    font-size: 21px;
+  }
+
+  .report-header h1 {
+    font-size: 23px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .report-type {
+    align-items: flex-start;
+  }
+}

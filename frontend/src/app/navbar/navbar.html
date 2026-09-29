@@ -1,0 +1,65 @@
+<nav class="navbar">
+
+  <div class="brand">
+
+    <span class="brand-icon">🎓</span>
+
+    <span class="brand-text">
+      Campus Lost & Found
+    </span>
+
+  </div>
+
+
+  <div class="nav-links">
+
+    <a routerLink="/dashboard">
+      Dashboard
+    </a>
+
+    <a routerLink="/items">
+      Search Items
+    </a>
+
+    <a routerLink="/report-item"
+       [queryParams]="{ type: 'LOST' }">
+      Report Lost
+    </a>
+
+    <a routerLink="/report-item"
+       [queryParams]="{ type: 'FOUND' }">
+      Report Found
+    </a>
+
+    <a routerLink="/claims">
+      My Claims
+    </a>
+
+    <a routerLink="/my-reports">
+      My Reports
+    </a>
+
+    <a routerLink="/conversations">
+     Conversations
+    </a>
+
+  </div>
+
+
+  <div class="user-section">
+
+    <span class="welcome">
+      <span style="color: rgb(243, 241, 241);">Hello, </span>
+      <span style="color: #350436; font-size:medium;">{{ username }}</span>
+    </span>
+
+    <button
+      class="logout-button"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</nav>

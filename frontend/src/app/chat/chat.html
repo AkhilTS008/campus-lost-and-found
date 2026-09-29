@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div class="chat-container">
+
+  <a routerLink="/conversations" class="back-link">
+    ← Back to Conversations
+  </a>
+
+  <h2>Chat</h2>
+
+  <div class="messages">
+
+    <div
+      class="message"
+      *ngFor="let msg of messages"
+    >
+
+      <strong>
+        {{ msg.sender_username }}
+           <!-- {{
+                msg.sender_username === currentUsername
+                  ? 'You'
+                  : 'Other User'
+          }} -->
+      </strong>
+
+      <p>
+        {{ msg.message }}
+      </p>
+
+      <small>
+        {{ msg.created_at | date:'short' }}
+      </small>
+
+    </div>
+
+  </div>
+
+  <form
+    (ngSubmit)="sendMessage()"
+    class="message-form"
+  >
+
+    <input
+      type="text"
+      [(ngModel)]="messageText"
+      name="messageText"
+      placeholder="Type your message..."
+      autocomplete="off"
+    >
+
+    <button type="submit">
+      Send
+    </button>
+
+  </form>
+
+  <!-- <p *ngIf="message">
+    {{ message }}
+  </p> -->
+
+</div>

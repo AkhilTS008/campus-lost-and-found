@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+
+
+<div class="claim-container">
+
+  <a routerLink="/items">
+    
+    ← Back to Items
+  </a>
+
+  <h2>Claim Item</h2>
+
+  <p>
+    Please explain why this item belongs to you.
+  </p>
+
+  <form (ngSubmit)="submitClaim()">
+
+    <label>Reason</label>
+
+    <textarea
+      [(ngModel)]="reason"
+      name="reason"
+      placeholder="Example: This is my blue bag. It has my college ID inside."
+      required
+    ></textarea>
+
+    <button
+      type="submit"
+      [disabled]="loading"
+    >
+      {{ loading ? 'Submitting...' : 'Submit Claim' }}
+    </button>
+
+  </form>
+
+  <!-- <p *ngIf="message">
+    {{ message }}
+  </p> -->
+
+</div>

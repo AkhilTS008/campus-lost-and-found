@@ -1,0 +1,136 @@
+<app-navbar></app-navbar>
+
+<div class="details-page">
+
+  <div class="details-container">
+
+    <!-- BACK BUTTON -->
+    <a routerLink="/items" class="back-link">
+      <span>←</span> Back to Items
+    </a>
+
+    <!-- ITEM DETAILS -->
+    <div *ngIf="item" class="item-details-card">
+
+      <!-- IMAGE SECTION -->
+      <div class="item-image-container">
+
+        <img
+          *ngIf="item.image"
+          [src]="item.image.startsWith('http')
+            ? item.image
+            : 'http://127.0.0.1:8000' + item.image"
+          alt="Item image"
+          class="item-image"
+        >
+
+        <div *ngIf="!item.image" class="no-image">
+          <span>📦</span>
+          <p>No image available</p>
+        </div>
+
+      </div>
+
+      <!-- DETAILS CONTENT -->
+      <div class="item-details-content">
+
+        <!-- TITLE AND TYPE -->
+        <div class="title-row">
+
+          <div>
+            <span class="eyebrow">ITEM DETAILS</span>
+            <h1>{{ item.item_name }}</h1>
+          </div>
+
+          <span
+            class="item-type"
+            [class.lost]="item.item_type === 'LOST'"
+            [class.found]="item.item_type === 'FOUND'"
+          >
+            {{ item.item_type === 'LOST' ? 'LOST ITEM' : 'FOUND ITEM' }}
+          </span>
+
+        </div>
+
+        <!-- STATUS -->
+        <div class="status-row">
+          <span
+            class="status-indicator"
+            [class.returned]="item.status === 'RETURNED'"
+          ></span>
+
+          <span>
+            {{ item.status === 'RETURNED' ? 'Returned' : 'Active' }}
+          </span>
+        </div>
+
+        <!-- INFORMATION -->
+        <div class="item-info-grid">
+
+          <div class="info-box">
+            <span class="info-label">Category</span>
+            <strong>{{ item.category }}</strong>
+          </div>
+
+          <div class="info-box">
+            <span class="info-label">Location</span>
+            <strong>{{ item.location }}</strong>
+          </div>
+
+          <div class="info-box">
+            <span class="info-label">Date</span>
+            <strong>{{ item.date }}</strong>
+          </div>
+
+          <div class="info-box">
+            <span class="info-label">Current Status</span>
+            <strong>{{ item.status }}</strong>
+          </div>
+
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="description-section">
+          <h2>Description</h2>
+          <p>{{ item.description }}</p>
+        </div>
+
+        <!-- CLAIM BUTTON -->
+        <div class="action-section">
+
+          <button
+            *ngIf="
+              item.item_type === 'FOUND' &&
+              item.status === 'ACTIVE'
+            "
+            class="claim-button"
+            (click)="goToClaim()"
+          >
+            Claim This Item
+            <span>→</span>
+          </button>
+
+          <div
+            *ngIf="
+              item.item_type === 'FOUND' &&
+              item.status === 'RETURNED'
+            "
+            class="unavailable-message"
+          >
+            ✓ This item has already been returned.
+          </div>
+
+          <div
+            *ngIf="item.item_type === 'LOST'"
+            class="unavailable-message lost-message"
+          >
+            This item has been reported as lost.
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

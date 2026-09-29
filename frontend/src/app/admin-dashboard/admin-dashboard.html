@@ -1,0 +1,98 @@
+<div class="admin-page">
+
+  <header class="admin-navbar">
+
+    <div class="admin-brand">
+      🛡️ Campus Lost & Found
+    </div>
+
+    <div class="admin-user">
+      Hello, {{ username }}
+
+      <button (click)="logout()">
+        Logout
+      </button>
+    </div>
+
+  </header>
+
+
+  <main class="admin-content">
+
+    <div class="admin-heading">
+
+      <span class="admin-icon">
+        🛡️
+      </span>
+
+      <div>
+
+        <h1>
+          Admin Dashboard
+        </h1>
+
+        <p>
+          Manage campus lost and found activities.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="admin-cards">
+
+
+      <div
+        class="admin-card"
+        routerLink="/admin/claims"
+      >
+
+        <div class="card-icon">
+          📋
+        </div>
+
+        <h3>
+          Manage Claims
+        </h3>
+
+        <p>
+          Review, approve or reject user claims.
+        </p>
+
+        <span>
+          Open →
+        </span>
+
+      </div>
+
+
+      <div
+        class="admin-card"
+        [routerLink]="['/admin/items']"
+      >
+
+        <div class="card-icon">
+          📦
+        </div>
+
+        <h3>
+          View Items
+        </h3>
+
+        <p>
+          View all reported lost and found items.
+        </p>
+
+        <span>
+          Open →
+        </span>
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+</div>

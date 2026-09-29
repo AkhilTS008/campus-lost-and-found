@@ -1,0 +1,137 @@
+<!-- frontend/src/app/claims/claims.html -->
+
+<app-navbar></app-navbar>
+
+<div class="claims-container">
+
+  <h2>My Claims</h2>
+
+  <a routerLink="/dashboard">
+    <button
+      style="
+        border-radius: 7px;
+        background-color: #010807;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      "
+    >
+      ← Back to Dashboard
+    </button>
+  </a>
+
+  <p
+    *ngIf="message"
+    class="message"
+  >
+    {{ message }}
+  </p>
+
+  <div
+    class="claim-card"
+    *ngFor="let claim of claims"
+  >
+
+    <h3>
+      Claim #{{ claim.id }}
+    </h3>
+
+    <p>
+      <strong>Item:</strong>
+      {{ claim.item_name }}
+    </p>
+
+    <p>
+      <strong>Reason:</strong>
+      {{ claim.reason }}
+    </p>
+
+    <p class="claim-status">
+
+      Status:
+
+      <span
+        [ngClass]="{
+          'status-pending':
+            claim.status === 'PENDING',
+
+          'status-approved':
+            claim.status === 'APPROVED',
+
+          'status-rejected':
+            claim.status === 'REJECTED'
+        }"
+      >
+        {{ claim.status }}
+      </span>
+
+    </p>
+
+    <p>
+      <strong>Created:</strong>
+      {{ claim.created_at | date:'medium' }}
+    </p>
+
+
+    <!-- APPROVED -->
+
+    <div
+      *ngIf="claim.status === 'APPROVED'"
+    >
+
+      <p>
+        ✓ Your claim has been approved.
+      </p>
+
+      <button
+        (click)="completeClaim(claim.id)"
+      >
+        Complete Claim
+      </button>
+
+    </div>
+
+
+    <!-- REJECTED -->
+
+    <p
+      *ngIf="claim.status === 'REJECTED'"
+      class="rejected"
+    >
+      Claim Rejected
+    </p>
+
+
+    <!-- PENDING -->
+
+    <p
+      *ngIf="claim.status === 'PENDING'"
+    >
+      Waiting for administrator approval.
+    </p>
+
+
+    <!-- REMOVE -->
+
+    <button
+      *ngIf="
+        claim.status === 'PENDING' ||
+        claim.status === 'REJECTED'
+      "
+      class="remove-claim-btn"
+      (click)="deleteClaim(claim.id)"
+    >
+      Remove Claim
+    </button>
+
+  </div>
+
+
+  <p
+    *ngIf="claims.length === 0"
+  >
+    No active claims found.
+  </p>
+
+</div>

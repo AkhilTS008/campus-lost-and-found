@@ -1,0 +1,193 @@
+<div class="admin-items-page">
+
+  <!-- Admin Header -->
+
+  <div class="admin-header">
+
+    <div class="admin-title">
+      🛡️ Campus Lost & Found — Admin
+    </div>
+
+    <div class="admin-actions">
+
+      <a routerLink="/admin-dashboard">
+        Dashboard
+      </a>
+
+      <a routerLink="/admin/claims">
+        Manage Claims
+      </a>
+
+      <button
+        (click)="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Page Content -->
+
+  <div class="admin-items-container">
+
+    <div class="page-header">
+
+      <div>
+        <h1>Lost & Found Items</h1>
+
+        <p>
+          View and monitor all items reported by students.
+        </p>
+      </div>
+
+      <a
+        routerLink="/admin-dashboard"
+        class="back-button"
+      >
+        ← Admin Dashboard
+      </a>
+
+    </div>
+
+
+    <!-- Error -->
+
+    <p
+      *ngIf="message"
+      class="error-message"
+    >
+      {{ message }}
+    </p>
+
+
+    <!-- Items -->
+
+    <div
+      class="items-grid"
+      *ngIf="items.length > 0"
+    >
+
+      <div
+        class="item-card"
+        *ngFor="let item of items"
+      >
+
+        <!-- Image -->
+
+        <div class="image-container">
+
+          <img
+            *ngIf="item.image"
+            [src]="'http://127.0.0.1:8000' + item.image"
+            [alt]="item.item_name"
+          >
+
+          <div
+            *ngIf="!item.image"
+            class="no-image"
+          >
+            📦
+          </div>
+
+        </div>
+
+
+        <!-- Content -->
+
+        <div class="item-content">
+
+          <div class="title-row">
+
+            <h3>
+              {{ item.item_name }}
+            </h3>
+
+            <span
+              class="type-badge"
+              [class.lost]="item.item_type === 'LOST'"
+              [class.found]="item.item_type === 'FOUND'"
+            >
+              {{ item.item_type }}
+            </span>
+
+          </div>
+
+
+          <p>
+            <strong>Category:</strong>
+            {{ item.category }}
+          </p>
+
+          <p>
+            <strong>Location:</strong>
+            {{ item.location }}
+          </p>
+
+          <p>
+            <strong>Date:</strong>
+            {{ item.date }}
+          </p>
+
+          <p class="description">
+            <strong>Description:</strong>
+            {{ item.description }}
+          </p>
+
+
+          <div class="status-row">
+
+            <strong>Status:</strong>
+
+            <span
+              class="status-badge"
+              [class.active]="item.status === 'ACTIVE'"
+              [class.returned]="item.status === 'RETURNED'"
+            >
+              {{ item.status }}
+            </span>
+
+          </div>
+
+
+          <p class="reported-by">
+
+            <strong>Reported By:</strong>
+
+            User ID #{{ item.reported_by }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- No Items -->
+
+    <div
+      *ngIf="items.length === 0 && !message"
+      class="empty-state"
+    >
+
+      <div class="empty-icon">
+        📦
+      </div>
+
+      <h2>
+        No Items Found
+      </h2>
+
+      <p>
+        There are currently no lost or found items reported.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

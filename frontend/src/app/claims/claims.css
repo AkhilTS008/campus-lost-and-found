@@ -1,0 +1,193 @@
+/* PAGE */
+.claims-container {
+  min-height: calc(100vh - 70px);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 25px 70px;
+  box-sizing: border-box;
+  background: #f8fafc;
+}
+
+/* HEADING */
+.claims-container > h2 {
+  margin: 0 0 20px;
+  color: #0f172a;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+/* BACK BUTTON */
+.claims-container > a {
+  display: inline-block;
+  margin-bottom: 25px;
+  text-decoration: none;
+}
+
+.claims-container > a button {
+  padding: 10px 17px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  color: #334155 !important;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.claims-container > a button:hover {
+  background: #f1f5f9 !important;
+}
+
+/* CLAIM CARD */
+.claim-card {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 25px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.claim-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.claim-card h3 {
+  margin: 0 0 20px;
+  color: #0f172a;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.claim-card p {
+  margin: 12px 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.claim-card strong {
+  color: #334155;
+}
+
+/* STATUS */
+.claim-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.claim-status span {
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-completed {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* COMPLETE BUTTON */
+.claim-card button {
+  margin-top: 12px;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.claim-card button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* COMPLETED AND REJECTED */
+.claim-card .completed,
+.claim-card .rejected {
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.claim-card .completed {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.claim-card .rejected {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* MESSAGE */
+.claims-container > .message {
+  padding: 13px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+/* EMPTY STATE */
+.claims-container > p:last-child {
+  padding: 35px 20px;
+  text-align: center;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .claims-container {
+    padding: 28px 15px 50px;
+  }
+
+  .claims-container > h2 {
+    font-size: 25px;
+  }
+
+  .claim-card {
+    padding: 20px;
+  }
+
+  .claim-card button {
+    width: 100%;
+  }
+}

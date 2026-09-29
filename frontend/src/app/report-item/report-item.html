@@ -1,0 +1,233 @@
+<app-navbar></app-navbar>
+
+<div class="report-page">
+
+  <div class="report-card">
+
+    <!-- HEADER -->
+
+    <div class="report-header">
+
+      <div class="report-icon">
+        {{ itemType === 'LOST' ? '🔍' : '📦' }}
+      </div>
+
+      <div>
+        <p class="eyebrow">
+          CAMPUS LOST & FOUND
+        </p>
+
+        <h1>
+          Report {{ itemType === 'LOST' ? 'Lost' : 'Found' }} Item
+        </h1>
+
+        <p class="subtitle">
+          {{
+            itemType === 'LOST'
+              ? 'Tell us about the item you lost so it can be identified and returned.'
+              : 'Help reunite a found item with its rightful owner.'
+          }}
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- REPORT TYPE -->
+
+    <div
+      class="report-type"
+      [class.lost-type]="itemType === 'LOST'"
+      [class.found-type]="itemType === 'FOUND'"
+    >
+
+      <span class="type-icon">
+        {{ itemType === 'LOST' ? '🔎' : '✓' }}
+      </span>
+
+      <div>
+
+        <strong>
+          {{ itemType === 'LOST' ? 'Lost Item Report' : 'Found Item Report' }}
+        </strong>
+
+        <p>
+          {{
+            itemType === 'LOST'
+              ? 'You are reporting an item that you lost.'
+              : 'You are reporting an item that you found.'
+          }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form
+      (ngSubmit)="submitItem()"
+      #reportForm="ngForm"
+    >
+
+      <!-- ITEM NAME -->
+
+      <div class="form-group">
+
+        <label for="itemName">
+          Item Name
+        </label>
+
+        <input
+          id="itemName"
+          type="text"
+          [(ngModel)]="itemName"
+          name="itemName"
+          [placeholder]="
+            itemType === 'LOST'
+              ? 'Example: Blue Backpack'
+              : 'Example: Black Wallet'
+          "
+          required
+        >
+
+      </div>
+
+
+      <!-- CATEGORY -->
+
+      <div class="form-group">
+
+        <label for="category">
+          Category
+        </label>
+
+        <input
+          id="category"
+          type="text"
+          [(ngModel)]="category"
+          name="category"
+          placeholder="Example: Bag, Electronics, Accessories"
+          required
+        >
+
+      </div>
+
+
+      <!-- DESCRIPTION -->
+
+      <div class="form-group">
+
+        <label for="description">
+          Description
+        </label>
+
+        <textarea
+          id="description"
+          [(ngModel)]="description"
+          name="description"
+          [placeholder]="
+            itemType === 'LOST'
+              ? 'Describe the item, colour, brand, identifying marks, etc.'
+              : 'Describe what you found, including colour, brand, identifying marks, etc.'
+          "
+          required
+        ></textarea>
+
+      </div>
+
+
+      <!-- LOCATION -->
+
+      <div class="form-group">
+
+        <label for="location">
+          {{ itemType === 'LOST' ? 'Last Seen Location' : 'Found Location' }}
+        </label>
+
+        <input
+          id="location"
+          type="text"
+          [(ngModel)]="location"
+          name="location"
+          [placeholder]="
+            itemType === 'LOST'
+              ? 'Example: College Library'
+              : 'Example: Main Block Corridor'
+          "
+          required
+        >
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div class="form-group">
+
+        <label for="date">
+          {{ itemType === 'LOST' ? 'Date Lost' : 'Date Found' }}
+        </label>
+
+        <input
+          id="date"
+          type="date"
+          [(ngModel)]="date"
+          name="date"
+          required
+        >
+
+      </div>
+
+
+      <!-- IMAGE -->
+
+      <div class="form-group">
+
+        <label for="image">
+          Item Image
+          <span>(Optional)</span>
+        </label>
+
+        <div class="file-box">
+
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+            (change)="selectImage($event)"
+          >
+
+          <p>
+            Upload a clear image to help identify the item.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- SUBMIT -->
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="!reportForm.valid"
+      >
+
+        <span>
+          {{ itemType === 'LOST' ? 'Report Lost Item' : 'Report Found Item' }}
+        </span>
+
+        <span class="arrow">
+          →
+        </span>
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

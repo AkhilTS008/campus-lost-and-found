@@ -1,0 +1,51 @@
+<div class="login-container">
+
+  <!-- <h2>Campus Lost & Found</h2> -->
+
+  <h2>Login</h2>
+
+  <form (ngSubmit)="login()">
+
+    <label>Username</label>
+    <input
+      type="text"
+      [(ngModel)]="username"
+      name="username"
+      required
+    >
+    <label>Password</label>
+
+<div class="password-box">
+
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    [(ngModel)]="password"
+    name="password"
+    placeholder="Enter your password"
+    required
+  >
+
+  <button
+    type="button"
+    class="eye-button"
+    (click)="showPassword = !showPassword"
+  >
+    {{ showPassword ? '🙈' : '👁️' }}
+  </button>
+
+</div>
+
+
+
+    <button type="submit">Login</button>
+
+  </form>
+
+  <!-- <p *ngIf="message">{{ message }}</p> -->
+
+  <p>
+    Don't have an account?
+    <a routerLink="/register">Register</a>
+  </p>
+
+</div>

@@ -1,0 +1,94 @@
+<app-navbar></app-navbar>
+
+<div class="conversations-container">
+
+  <div class="page-header">
+    <h1>My Conversations</h1>
+
+    <p>
+      Connect privately with students about your reported and claimed items.
+    </p>
+  </div>
+
+  <p
+    *ngIf="message"
+    class="error-message"
+  >
+    {{ message }}
+  </p>
+
+  <div
+    class="conversation-grid"
+    *ngIf="conversations.length > 0"
+  >
+
+    <div
+      class="conversation-card"
+      *ngFor="let conversation of conversations"
+    >
+
+      <div class="conversation-icon">
+        💬
+      </div>
+
+      <div class="conversation-content">
+
+        <h3>
+          {{ conversation.item_name }}
+        </h3>
+
+        <p>
+          Item Type:
+          <strong>
+            {{ conversation.item_type }}
+          </strong>
+        </p>
+
+        <p>
+          Conversation:
+          <span class="private-label">
+            🔒 Private
+          </span>
+        </p>
+
+        <a
+          class="chat-button"
+          [routerLink]="['/chat', conversation.item_id]"
+        >
+          Open Chat →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    *ngIf="conversations.length === 0 && !message"
+    class="empty-state"
+  >
+
+    <div class="empty-icon">
+      💬
+    </div>
+
+    <h3>
+      No Conversations Yet
+    </h3>
+
+    <p>
+      Conversations will appear here when you report an item
+      or submit a claim.
+    </p>
+
+    <a
+      routerLink="/items"
+      class="browse-button"
+    >
+      Browse Items
+    </a>
+
+  </div>
+
+</div>

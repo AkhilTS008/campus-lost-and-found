@@ -1,0 +1,213 @@
+<app-navbar></app-navbar>
+
+<div class="reports-container">
+
+  <div class="page-header">
+    <h1>My Reports</h1>
+    <p>Manage the lost and found items you have reported.</p>
+  </div>
+
+  <p *ngIf="message" class="error-message">
+    {{ message }}
+  </p>
+
+  <div class="reports-grid" *ngIf="reports.length > 0">
+
+    <div class="report-card" *ngFor="let report of reports">
+
+      <!-- EDIT FORM -->
+      <div *ngIf="editingReportId === report.id" class="edit-form">
+
+        <h2>Edit Report</h2>
+
+        <label>Item Name</label>
+        <input
+          type="text"
+          [(ngModel)]="editData.item_name"
+          required
+        >
+
+        <label>Category</label>
+        <input
+          type="text"
+          [(ngModel)]="editData.category"
+          required
+        >
+
+        <label>Description</label>
+        <textarea
+          [(ngModel)]="editData.description"
+          rows="4"
+          required
+        ></textarea>
+
+        <label>Location</label>
+        <input
+          type="text"
+          [(ngModel)]="editData.location"
+          required
+        >
+
+        <label>Date</label>
+        <input
+          type="date"
+          [(ngModel)]="editData.date"
+          required
+        >
+
+        <label>Item Image</label>
+        <input
+          type="file"
+          accept="image/*"
+          (change)="selectImage($event)"
+        >
+
+        <div class="edit-image" *ngIf="imagePreview">
+          <img [src]="imagePreview" alt="Item preview">
+        </div>
+
+        <div class="edit-actions">
+          <button
+            class="save-button"
+            (click)="saveEdit(report.id)"
+          >
+            Save Changes
+          </button>
+
+          <button
+            class="cancel-button"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+        </div>
+
+      </div>
+
+      <!-- NORMAL REPORT CARD -->
+      <ng-container *ngIf="editingReportId !== report.id">
+
+        <div class="image-container">
+
+          <img
+            *ngIf="report.image"
+            [src]="report.image.startsWith('http')
+              ? report.image
+              : 'http://127.0.0.1:8000' + report.image"
+            alt="Item image"
+          >
+
+          <div *ngIf="!report.image" class="no-image">
+            📦
+          </div>
+
+        </div>
+
+        <div class="report-content">
+
+          <div class="title-row">
+            <h3>{{ report.item_name }}</h3>
+
+            <span
+              class="type-badge"
+              [class.lost]="report.item_type === 'LOST'"
+              [class.found]="report.item_type === 'FOUND'"
+            >
+              {{ report.item_type }}
+            </span>
+          </div>
+
+          <p>
+            <strong>Category:</strong>
+            {{ report.category }}
+          </p>
+
+          <p>
+            <strong>Location:</strong>
+            {{ report.location }}
+          </p>
+
+          <p>
+            <strong>Date:</strong>
+            {{ report.date }}
+          </p>
+
+          <p class="description">
+            {{ report.description }}
+          </p>
+
+          <div class="status-row">
+            <strong>Status:</strong>
+
+            <span
+              class="status-badge"
+              [class.active]="report.status === 'ACTIVE'"
+              [class.returned]="report.status === 'RETURNED'"
+            >
+              {{ report.status }}
+            </span>
+          </div>
+
+          <div class="report-actions">
+
+            <a
+              class="view-button"
+              [routerLink]="['/item', report.id]"
+            >
+              View Details
+            </a>
+
+            <button
+              class="edit-button"
+              (click)="startEdit(report)"
+              [disabled]="report.status === 'RETURNED'"
+            >
+              Edit
+            </button>
+
+            <button
+              class="delete-button"
+              (click)="deleteReport(report.id)"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div
+    *ngIf="reports.length === 0 && !message"
+    class="empty-state"
+  >
+    <div class="empty-icon">📝</div>
+
+    <h3>No Reports Yet</h3>
+
+    <p>You haven't reported any lost or found items.</p>
+
+    <div class="empty-buttons">
+      <a
+        routerLink="/report-item"
+        [queryParams]="{ type: 'LOST' }"
+      >
+        Report Lost Item
+      </a>
+
+      <a
+        routerLink="/report-item"
+        [queryParams]="{ type: 'FOUND' }"
+      >
+        Report Found Item
+      </a>
+    </div>
+  </div>
+
+</div>
