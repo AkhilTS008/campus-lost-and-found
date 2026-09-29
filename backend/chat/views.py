@@ -1,3 +1,8 @@
+from datetime import timedelta
+
+from django.utils import timezone
+from django.db.models import Q
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,47 +15,70 @@ from items.models import Item
 from claims.models import Claim
 
 
+# ==========================================
+# 1. CHAT BETWEEN REPORTER AND CLAIMANT
+# ==========================================
+
 class ChatView(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    # View messages
     def get(self, request, item_id):
 
         try:
             item = Item.objects.get(pk=item_id)
+
         except Item.DoesNotExist:
             return Response(
                 {"message": "Item not found"},
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Find the latest active/completed claim
+        # Calculate the time 24 hours ago
+        cutoff = timezone.now() - timedelta(hours=24)
+
+        # Find the latest active claim or
+        # a completed claim within 24 hours
         claim = Claim.objects.filter(
-            item=item,
-            status__in=[
-                'PENDING',
-                'APPROVED',
-                'COMPLETED'
-            ]
+            item=item
+        ).filter(
+            Q(
+                status__in=[
+                    'PENDING',
+                    'APPROVED'
+                ]
+            )
+            |
+            Q(
+                status='COMPLETED',
+                completed_at__gte=cutoff
+            )
         ).order_by('-created_at').first()
 
         if not claim:
             return Response(
-                {"message": "No conversation available"},
+                {
+                    "message":
+                    "No conversation available"
+                },
                 status=status.HTTP_404_NOT_FOUND
             )
 
         reporter = item.reported_by
         claimant = claim.claimed_by
 
-        # Only reporter or claimant can access
+        # Only the reporter or claimant can access
         if request.user not in [reporter, claimant]:
             return Response(
-                {"message": "You are not allowed to access this chat"},
+                {
+                    "message":
+                    "You are not allowed to access this chat"
+                },
                 status=status.HTTP_403_FORBIDDEN
             )
 
-        # Show only messages between these two users
+        # Get messages between these two users
         messages = Message.objects.filter(
             item=item,
             sender__in=[reporter, claimant],
@@ -64,10 +92,12 @@ class ChatView(APIView):
 
         return Response(serializer.data)
 
+    # Send a message
     def post(self, request, item_id):
 
         try:
             item = Item.objects.get(pk=item_id)
+
         except Item.DoesNotExist:
             return Response(
                 {"message": "Item not found"},
@@ -76,13 +106,16 @@ class ChatView(APIView):
 
         message_text = request.data.get('message')
 
+        # Check that the message is not empty
         if not message_text or not message_text.strip():
             return Response(
-                {"message": "Message is required"},
+                {
+                    "message": "Message is required"
+                },
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Find active claim
+        # Find the latest active claim
         claim = Claim.objects.filter(
             item=item,
             status__in=[
@@ -93,14 +126,17 @@ class ChatView(APIView):
 
         if not claim:
             return Response(
-                {"message": "No active claim found for this item"},
+                {
+                    "message":
+                    "Item has returned to the reporter or no active claim exists"
+                },
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         reporter = item.reported_by
         claimant = claim.claimed_by
 
-        # Decide receiver
+        # Decide who receives the message
         if request.user == reporter:
             receiver = claimant
 
@@ -109,10 +145,14 @@ class ChatView(APIView):
 
         else:
             return Response(
-                {"message": "You are not allowed to send messages in this chat"},
+                {
+                    "message":
+                    "You are not allowed to send messages in this chat"
+                },
                 status=status.HTTP_403_FORBIDDEN
             )
 
+        # Create the message
         message = Message.objects.create(
             item=item,
             sender=request.user,
@@ -128,18 +168,25 @@ class ChatView(APIView):
         )
 
 
+# ==========================================
+# 2. MY CONVERSATIONS
+# ==========================================
+
 class MyConversationsView(APIView):
 
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
 
-        # Items reported by the current user
+        # Calculate the time 24 hours ago
+        cutoff = timezone.now() - timedelta(minutes=1)
+
+        # Get items reported by the current user
         reported_items = Item.objects.filter(
             reported_by=request.user
         )
 
-        # Items where the current user has claimed
+        # Get items claimed by the current user
         claimed_item_ids = Claim.objects.filter(
             claimed_by=request.user
         ).values_list(
@@ -151,40 +198,57 @@ class MyConversationsView(APIView):
             id__in=claimed_item_ids
         )
 
-        # Combine both
+        # Combine reported and claimed item IDs
         item_ids = set(
-            reported_items.values_list('id', flat=True)
+            reported_items.values_list(
+                'id',
+                flat=True
+            )
         )
 
         item_ids.update(
-            claimed_items.values_list('id', flat=True)
+            claimed_items.values_list(
+                'id',
+                flat=True
+            )
         )
 
         conversations = []
 
+        # Check each item
         for item_id in item_ids:
 
             item = Item.objects.get(id=item_id)
 
+            # Find the latest active claim or
+            # completed claim within 24 hours
             claim = Claim.objects.filter(
-                item=item,
-                status__in=[
-                    'PENDING',
-                    'APPROVED',
-                    'COMPLETED'
-                ]
+                item=item
+            ).filter(
+                Q(
+                    status__in=[
+                        'PENDING',
+                        'APPROVED'
+                    ]
+                )
+                |
+                Q(
+                    status='COMPLETED',
+                    completed_at__gte=cutoff
+                )
             ).order_by('-created_at').first()
 
             if not claim:
                 continue
 
-            # Only include if current user is reporter or claimant
+            # Only the reporter or claimant can see it
             if (
                 item.reported_by != request.user
                 and claim.claimed_by != request.user
             ):
                 continue
 
+            # Add conversation to the response
             conversations.append({
                 "item_id": item.id,
                 "item_name": item.item_name,

@@ -1,3 +1,5 @@
+from django.db.migrations import serializer
+from django.http import request
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -163,11 +165,12 @@ class MyReportsView(APIView):
     def get(self, request):
 
         items = Item.objects.filter(
-            reported_by=request.user
+            reported_by=request.user,
+            status='ACTIVE'
         ).order_by('-created_at')
 
         serializer = ItemSerializer(
-            items,
+        items,
             many=True
         )
 
