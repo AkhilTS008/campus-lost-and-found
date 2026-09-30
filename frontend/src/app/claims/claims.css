@@ -172,7 +172,16 @@
   color: #64748b;
   font-size: 13px;
 }
+.status-completed {
+  color: green;
+  font-weight: bold;
+}
 
+.completed-success {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .claims-container {

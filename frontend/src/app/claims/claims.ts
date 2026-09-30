@@ -191,18 +191,29 @@ export class Claims
 
     this.claimService.getMyClaims().subscribe({
 
+      // next: (response) => {
+
+      //   this.claims = response.filter(
+      //     (claim: any) =>
+      //       claim.status !== 'COMPLETED'
+      //   );
+
+      //   console.log(
+      //     'Active claims:',
+      //     this.claims
+      //   );
+      // },
       next: (response) => {
 
-        this.claims = response.filter(
-          (claim: any) =>
-            claim.status !== 'COMPLETED'
-        );
+        this.claims = response;
 
         console.log(
-          'Active claims:',
+        'All claims:',
           this.claims
         );
       },
+
+
 
       error: (error) => {
 

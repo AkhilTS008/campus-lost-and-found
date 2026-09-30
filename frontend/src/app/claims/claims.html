@@ -61,6 +61,9 @@
 
           'status-rejected':
             claim.status === 'REJECTED'
+
+          'status-completed':
+            claim.status === 'COMPLETED'
         }"
       >
         {{ claim.status }}
@@ -101,6 +104,20 @@
     >
       Claim Rejected
     </p>
+
+    <!-- COMPLETED -->
+
+    <div
+      *ngIf="claim.status === 'COMPLETED'"
+>
+      <p class="completed-success">
+      ✅ Item Returned Successfully
+      </p>
+
+      <p>
+         Your claim has been completed and the item has been returned to you.
+      </p>
+    </div>
 
 
     <!-- PENDING -->
